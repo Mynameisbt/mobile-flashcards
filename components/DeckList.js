@@ -1,22 +1,30 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { getDecks } from '../utils/api';
+import { receiveDecks, selectDeck } from '../actions'
+import { connect } from 'react-redux'
 
 class DeckList extends React.Component {
-    decks;
 
-    goToDeck(id) {
-      this.props.navigation.navigate('DeckView',{id:id})
+    goToDeck(deck) {
+      this.props.dispatch(selectDeck(deck))
+      this.props.navigation.navigate('DeckView')
     }
 
     componentDidMount () {
-        decks = getDecks();
+        let decks = getDecks();
+        this.props.dispatch(receiveDecks(decks))
+        console.log("props")
+        console.log(this.props);
     }
     render(){
+      const {decks} = this.props;
+      console.log("decks")
+      console.log(decks);
       return (
         <View>
         {
-            decks.map((q) => (<View onTouchEnd={(event) => this.goToDeck(q.id)} key={q.id} style={styles.container}><Text>{q.name}</Text><Text>{q.questions.length} Questions</Text></View>))
+            decks && decks.map((q) => (<View onTouchEnd={(event) => this.goToDeck(q)} key={q.id} style={styles.container}><Text>{q.name}</Text><Text>{q.questions.length} Questions</Text></View>))
         }
         </View>
       );
@@ -31,4 +39,13 @@ class DeckList extends React.Component {
     },
   });
 
-export default DeckList;
+  function mapStateToProps (state) {
+    console.log("Map")
+    console.log(state)
+    return {
+      decks: state.decks
+    }
+  }
+  
+
+export default connect(mapStateToProps)(DeckList);
