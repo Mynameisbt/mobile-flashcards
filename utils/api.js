@@ -55,6 +55,11 @@ export function createDeck(title) {
     decks = decks.slice(0);
 }
 
+export function deleteDeck(id) {
+    let updatedDecks = decks.filter(d => d.id !== id)
+    decks = updatedDecks.slice(0);
+}
+
 export function addQuestionToDeck(deckId, question) {
     let deck = decks.filter(d => d.id === deckId)[0];
     deck.questions.push(question);
