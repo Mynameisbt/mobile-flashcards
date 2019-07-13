@@ -8,10 +8,17 @@ class DeckView extends React.Component {
     componentDidMount() {
 
     }
+
+    addQuestion() {
+      console.log("Go to add question")
+      this.props.navigation.navigate("AddQuestion")
+    }
+
     render(){
       const {deck} = this.props;
       return (
         <View>
+            <TouchableHighlight onPress={(event) => this.addQuestion()}  backgroundColor="blue" underlayColor="red" ><Text>Add Card</Text></TouchableHighlight>
             <TouchableHighlight backgroundColor="blue" underlayColor="red"><Text>Start Quiz</Text></TouchableHighlight>
             <TouchableHighlight backgroundColor="red" underlayColor="red"><Text>Delete Deck</Text></TouchableHighlight>
             <Text>Deck Name: {this.props.deck.name}</Text>

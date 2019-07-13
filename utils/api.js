@@ -4,12 +4,10 @@ decks = [
         name:'Deck 1',
         questions: [
             {
-                id:1,
                 question: "What is going on",
                 answer: "nothing"
             },
             {
-                id:2,
                 question: "What is not going  on",
                 answer: "everything"
             }
@@ -20,17 +18,14 @@ decks = [
         name:'Deck 2',
         questions: [
             {
-                id:1,
                 question: "How are you feeling",
                 answer: "nothing"
             },
             {
-                id:2,
                 question: "Whats going on",
                 answer: "everything"
             },
             {
-                id:3,
                 question: "Random stuff",
                 answer: "everything"
             }
@@ -45,4 +40,25 @@ export function getDecks() {
 
 export function getDeck(id) {
     return decks.filter(d => d.id === id)[0];
+}
+
+export function createDeck(title) {
+    let newDeck = 
+        {
+            id: Math.floor(Math.random() * 99999),
+            name: title,
+            questions: []
+        }
+    console.log(decks);
+    decks.push(newDeck)
+    
+    decks = decks.slice(0);
+}
+
+export function addQuestionToDeck(deckId, question) {
+    let deck = decks.filter(d => d.id === deckId)[0];
+    deck.questions.push(question);
+    let newDecks = decks.filter(d => d.id !== deckId);
+    newDecks.push(deck);
+    decks = newDecks;
 }

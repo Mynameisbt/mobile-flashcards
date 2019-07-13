@@ -19,9 +19,10 @@ export function selectDeck(deck) {
 
 
 
-export function addQuestion(question) {
+export function addQuestion(deckId, question) {
     return {
         type: ADD_QUESTION,
+        deckId,
         question
     }
 }

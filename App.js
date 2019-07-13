@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import { TabNavigator,StackNavigator } from 'react-navigation'
-import { FontAwesome } from '@expo/vector-icons'
-import { renderComponent } from 'recompose';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 import AddDeck from './components/AddDeck';
 import { Constants } from 'expo';
 import DeckView from './components/DeckView';
@@ -10,6 +8,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer from './reducers'
 import DeckList from './components/DeckList';
+import AddQuestion from './components/AddQuestion';
 
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
@@ -20,7 +19,7 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
   )
 }
 
-const DeckStack = StackNavigator ({
+const DeckStack = createStackNavigator ({
   Home: {
     screen: DeckList,
   },
@@ -32,10 +31,13 @@ const DeckStack = StackNavigator ({
         backgroundColor: 'purple',
       }
     }
+  },
+  AddQuestion: {
+    screen: AddQuestion
   }
 })
 
-const Tabs = TabNavigator({
+const Tabs = createBottomTabNavigator({
   Decks: {
     screen: DeckStack
   },
