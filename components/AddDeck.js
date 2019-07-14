@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import {createDeck, getDecks} from '../utils/api'
 import { receiveDecks, selectDeck } from '../actions'
@@ -14,7 +14,7 @@ class AddDeck extends React.Component {
     let newDeck = createDeck(this.state.title)
     getDecks().then((decks) => {
       this.props.dispatch(receiveDecks(decks))
-      this.props.dispatch(selectDeck(decks.filter(d => d.id === newDeck.id)[0]))
+      this.props.dispatch(selectDeck(newDeck.id))
     }
     )
     

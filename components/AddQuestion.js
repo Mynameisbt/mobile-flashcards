@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
+import { Text, View, Button } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import {addQuestionToDeck, getDecks} from '../utils/api'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { receiveDecks, selectDeck } from '../actions'
+import { receiveDecks } from '../actions'
 
 class AddQuestion extends React.Component {
   state = {
@@ -53,7 +53,7 @@ class AddQuestion extends React.Component {
   
   function mapStateToProps(state) {
     return {
-      deck: state.selectedDeck ? state.selectedDeck : {name:'Unselected'}
+      deck: state.selectedDeck ? state.decks.filter( d => d.id === state.selectedDeck)[0] : {name:'Unselected'}
     }
   }
 

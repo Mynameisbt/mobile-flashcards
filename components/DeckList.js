@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { populateDecksFromStorage, getDecks } from '../utils/api';
+import { getDecks } from '../utils/api';
 import { receiveDecks, selectDeck } from '../actions'
 import { connect } from 'react-redux'
 
 class DeckList extends React.Component {
 
     goToDeck(deck) {
-      this.props.dispatch(selectDeck(deck))
+      this.props.dispatch(selectDeck(deck.id))
       this.props.navigation.navigate('DeckView')
     }
 

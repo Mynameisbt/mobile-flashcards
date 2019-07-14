@@ -15,7 +15,7 @@ class QuizView extends React.Component {
 
   setCorrect() {
     this.setState((prevState) => {
-      if (prevState.questionNumber +1 === this.props.questions.length) {
+      if (prevState.questionNumber +1 === this.props.deck.questions.length) {
         clearLocalNotification().then(setLocalNotification)
       }
       
@@ -29,7 +29,7 @@ class QuizView extends React.Component {
 
   setIncorrect() {
     this.setState((prevState) => {
-      if (prevState.questionNumber +1 === this.props.questions.length) {
+      if (prevState.questionNumber +1 === this.props.deck.questions.length) {
         clearLocalNotification().then(setLocalNotification)
       }
       return {
@@ -108,7 +108,7 @@ class QuizView extends React.Component {
   
   function mapStateToProps(state) {
     return {
-      deck: state.selectedDeck ? state.selectedDeck : {name:'Unselected'}
+      deck: state.selectedDeck ? state.decks.filter(d => d.id === state.selectedDeck)[0] : {name:'Unselected'}
     }
   }
 
