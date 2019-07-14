@@ -30,19 +30,21 @@ class DeckView extends React.Component {
       const {deck} = this.props;
       return (
         <View>
-            <TouchableHighlight onPress={(event) => this.addQuestion()}  backgroundColor="blue" underlayColor="red" ><Text>Add Card</Text></TouchableHighlight>
-            <Button backgroundColor="blue" underlayColor="red" onPress={(event) => this.startQuiz()} title="Start Quiz">Start Quiz</Button>
-            <TouchableHighlight backgroundColor="red" underlayColor="red"onPress={(event) => this.deleteDeckAction()}><Text>Delete Deck</Text></TouchableHighlight>
             <Text>Deck Name: {this.props.deck.name}</Text>
-
+            <Text>Cards: {this.props.numQuestions}</Text>
+            <Button onPress={(event) => this.addQuestion()}  backgroundColor="green" title="Add Card"><Text>Add Card</Text></Button>
+            <Button backgroundColor="blue" onPress={(event) => this.startQuiz()} title="Start Quiz">Start Quiz</Button>
+            <Button backgroundColor="red" onPress={(event) => this.deleteDeckAction()} title="Delete Deck"><Text>Delete Deck</Text></Button>
         </View>
       );
     } 
   }
   
 function mapStateToProps(state) {
+  let deckProp = state.selectedDeck ? state.selectedDeck : {name:'Unselected', questions:[]}
   return {
-    deck: state.selectedDeck ? state.selectedDeck : {name:'Unselected'}
+    deck: deckProp,
+    numQuestions: deckProp.questions.length
   }
 }
 

@@ -23,7 +23,7 @@ class DeckList extends React.Component {
       return (
         <View>
         {
-            decks && decks.map((q) => (<View onTouchEnd={(event) => this.goToDeck(q)} key={q.id} style={styles.container}><Text>{q.name}</Text><Text>{q.questions.length} Questions</Text></View>))
+            decks && decks.map((q) => (<View onTouchEnd={(event) => this.goToDeck(q)} key={q.id} style={styles.container}><Text>{q.name}</Text><Text>{q.questions.length} Cards</Text></View>))
         }
         </View>
       );
