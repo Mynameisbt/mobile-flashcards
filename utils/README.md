@@ -8,10 +8,9 @@ To start the project run
 
 `yarn start`
 
-This will start up the development server
+This will start up the development expo server
 
-
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This application has been tested with Android
 
 
 This is a react native mobile flash cards application.  The application uses local storage to store data.
