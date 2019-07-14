@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
+import { Text, View, Button } from 'react-native';
 import {addQuestionToDeck, getDecks} from '../utils/api'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
@@ -10,7 +9,8 @@ class QuizView extends React.Component {
   state = {
     questionNumber:0,
     numCorrect:0,
-    numIncorrect:0
+    numIncorrect:0,
+    displayAnswer: false
   }
   saveQuestion() {
     let question = this.state.question
@@ -29,23 +29,12 @@ class QuizView extends React.Component {
 
   }
 
-  updateQuestion(text) {
-    this.setState(() => ({
-      question: text
-    }))
-  }
-
-  updateAnswer(text) {
-    this.setState(() => ({
-      answer: text
-    }))
-  }
-
   setCorrect() {
     this.setState((prevState) => (
       {
         numCorrect: prevState.numCorrect+1,
-        questionNumber: prevState.questionNumber+1
+        questionNumber: prevState.questionNumber+1,
+        displayAnswer: false
       }
     ));
   }
@@ -54,7 +43,8 @@ class QuizView extends React.Component {
     this.setState((prevState) => (
       {
         numIncorrect: prevState.numIncorrect+1,
-        questionNumber: prevState.questionNumber+1
+        questionNumber: prevState.questionNumber+1,
+        displayAnswer: false
       }
     ));
   }
@@ -78,7 +68,19 @@ class QuizView extends React.Component {
       return (
         <View>
             <Text>{this.state.questionNumber+1}/{this.props.deck.questions.length}</Text>
-            <Text>{question.question}?</Text>
+            {
+              this.state.displayAnswer ? 
+              ( <View>
+                  <Text>{question.answer}</Text>
+                  <Button title="Question" onPress={() => this.setState({displayAnswer:false})}>Correct</Button>
+                </View>
+              ) :
+              (
+              <View>
+                <Text>{question.question}?</Text>
+                <Button title="Answer" onPress={() => this.setState({displayAnswer:true})}>Correct</Button>
+              </View>)
+            }
             <Button title="Correct" onPress={() => this.setCorrect()}>Correct</Button>  
             <Button title="Incorrect" onPress={() => this.setIncorrect()}>Incorrect</Button>           
         </View>
