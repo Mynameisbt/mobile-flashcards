@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, Animated } from 'react-native';
 import {addQuestionToDeck, getDecks} from '../utils/api'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
@@ -10,7 +10,8 @@ class QuizView extends React.Component {
     questionNumber:0,
     numCorrect:0,
     numIncorrect:0,
-    displayAnswer: false
+    displayAnswer: false,
+    opacity: new Animated.Value(1)
   }
   saveQuestion() {
     let question = this.state.question
@@ -48,6 +49,16 @@ class QuizView extends React.Component {
       }
     ));
   }
+
+  toggleAnswer() {
+    this.setState((prevState) => ({
+      displayAnswer: !prevState.displayAnswer
+    }));
+    Animated.sequence([
+    Animated.timing(this.state.opacity, {toValue:0, duration:500}),
+    Animated.timing(this.state.opacity, {toValue:1, duration:500})
+    ]).start()
+  }
   
   render(){
     if (this.props.deck.questions ==null || this.props.deck.questions.length === 0) {
@@ -68,19 +79,21 @@ class QuizView extends React.Component {
       return (
         <View>
             <Text>{this.state.questionNumber+1}/{this.props.deck.questions.length}</Text>
+            <Animated.View opacity={this.state.opacity}>
             {
               this.state.displayAnswer ? 
               ( <View>
                   <Text>{question.answer}</Text>
-                  <Button title="Question" onPress={() => this.setState({displayAnswer:false})}>Correct</Button>
+                  <Button title="Question" onPress={() => this.toggleAnswer()}>Correct</Button>
                 </View>
               ) :
               (
               <View>
                 <Text>{question.question}?</Text>
-                <Button title="Answer" onPress={() => this.setState({displayAnswer:true})}>Correct</Button>
+                <Button title="Answer" onPress={() => this.toggleAnswer()}>Correct</Button>
               </View>)
             }
+            </Animated.View>
             <Button title="Correct" onPress={() => this.setCorrect()}>Correct</Button>  
             <Button title="Incorrect" onPress={() => this.setIncorrect()}>Incorrect</Button>           
         </View>
