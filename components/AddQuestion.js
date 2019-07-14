@@ -45,7 +45,7 @@ class AddQuestion extends React.Component {
             <Text>Enter New Question</Text>
             <TextInput placeholder="Enter Question" name="question" onChangeText={(txt) => this.updateQuestion(txt.trim())}>{this.state.question}</TextInput>
             <TextInput placeholder="Enter Answer" name="answer" onChangeText={(txt) => this.updateAnswer(txt.trim())}>{this.state.answer}</TextInput>
-            <TouchableHighlight backgroundColor="blue" underlayColor="red" onPress={() => this.saveQuestion()}><Text>Create Question</Text></TouchableHighlight>
+            <Button backgroundColor="blue" onPress={() => this.saveQuestion()}>Create Question</Button>
         </View>
       );
     } 

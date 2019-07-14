@@ -13,22 +13,6 @@ class QuizView extends React.Component {
     displayAnswer: false,
     opacity: new Animated.Value(1)
   }
-  saveQuestion() {
-    let question = this.state.question
-    let answer = this.state.answer
-    if (question.length > 0 && answer.length > 0) {
-      addQuestionToDeck(this.props.deck.id, {
-        question: question,
-        answer: answer
-      })
-      getDecks().then(decks => this.props.dispatch(receiveDecks(decks)) )
-        
-
-      this.props.navigation.dispatch(NavigationActions.back({key: 'AddQuestion'}))
-    }
-
-
-  }
 
   setCorrect() {
     this.setState((prevState) => (
@@ -59,6 +43,18 @@ class QuizView extends React.Component {
     Animated.timing(this.state.opacity, {toValue:1, duration:500})
     ]).start()
   }
+  restartQuiz() {
+    this.setState({
+      questionNumber:0,
+      numCorrect:0,
+      numIncorrect:0,
+      displayAnswer: false,
+    })
+  }
+
+  backToDeck() {
+    this.props.navigation.dispatch(NavigationActions.back())
+  }
   
   render(){
     if (this.props.deck.questions ==null || this.props.deck.questions.length === 0) {
@@ -71,6 +67,8 @@ class QuizView extends React.Component {
             <Text>All questions answered</Text>
             <Text>Number Correct: {this.state.numCorrect}</Text>
             <Text>Number Inorrect: {this.state.numIncorrect}</Text>
+            <Button title="Restart Quiz" onPress={() => this.restartQuiz()}></Button>
+            <Button title="Back to Deck"onPress={() => this.backToDeck()}></Button>
         </View>
       )
     } else {
