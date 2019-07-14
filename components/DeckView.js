@@ -6,12 +6,8 @@ import { connect } from 'react-redux'
 import { receiveDecks, selectDeck } from '../actions'
 
 class DeckView extends React.Component {
-    componentDidMount() {
-
-    }
 
     addQuestion() {
-      console.log("Go to add question")
       this.props.navigation.navigate("AddQuestion")
     }
 

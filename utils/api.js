@@ -24,7 +24,6 @@ export function createDeck(title) {
             name: title,
             questions: []
         }
-    console.log(decks);
     decks.push(newDeck);
     decks = decks.slice(0);
     AsyncStorage.setItem(KEY,JSON.stringify(decks))

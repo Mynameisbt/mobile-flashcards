@@ -13,13 +13,9 @@ class DeckList extends React.Component {
 
     componentDidMount () {
        getDecks().then((decks) => this.props.dispatch(receiveDecks(decks)))      
-        console.log("props")
-        console.log(this.props);
     }
     render(){
       const {decks} = this.props;
-      console.log("decks")
-      console.log(decks);
       return (
         <View>
         {
@@ -39,8 +35,6 @@ class DeckList extends React.Component {
   });
 
   function mapStateToProps (state) {
-    console.log("Map")
-    console.log(state)
     return {
       decks: state.decks
     }
