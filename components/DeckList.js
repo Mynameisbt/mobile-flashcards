@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { getDecks } from '../utils/api';
+import { populateDecksFromStorage, getDecks } from '../utils/api';
 import { receiveDecks, selectDeck } from '../actions'
 import { connect } from 'react-redux'
 
@@ -12,8 +12,7 @@ class DeckList extends React.Component {
     }
 
     componentDidMount () {
-        let decks = getDecks();
-        this.props.dispatch(receiveDecks(decks))
+       getDecks().then((decks) => this.props.dispatch(receiveDecks(decks)))      
         console.log("props")
         console.log(this.props);
     }

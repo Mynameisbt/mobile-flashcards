@@ -21,8 +21,8 @@ class QuizView extends React.Component {
         question: question,
         answer: answer
       })
-      let decks = getDecks();
-        this.props.dispatch(receiveDecks(decks))
+      getDecks().then(decks => this.props.dispatch(receiveDecks(decks)) )
+        
 
       this.props.navigation.dispatch(NavigationActions.back({key: 'AddQuestion'}))
     }

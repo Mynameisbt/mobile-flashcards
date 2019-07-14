@@ -1,45 +1,20 @@
-decks = [
-    {
-        id:1,
-        name:'Deck 1',
-        questions: [
-            {
-                question: "What is going on",
-                answer: "nothing"
-            },
-            {
-                question: "What is not going  on",
-                answer: "everything"
-            }
-        ]
-    },
-    {
-        id:2,
-        name:'Deck 2',
-        questions: [
-            {
-                question: "How are you feeling",
-                answer: "nothing"
-            },
-            {
-                question: "Whats going on",
-                answer: "everything"
-            },
-            {
-                question: "Random stuff",
-                answer: "everything"
-            }
-        ]
-    }
-]
+import { AsyncStorage } from 'react-native'
 
+KEY = "btmobileflashcards"
+
+decks = []
 
 export function getDecks() {
-    return decks;
-}
-
-export function getDeck(id) {
-    return decks.filter(d => d.id === id)[0];
+    return new Promise(function(resolve) {
+        AsyncStorage.getItem(KEY).then((result) => {
+            if (result == null) {
+              decks = []
+            } else {
+              decks = JSON.parse(result)
+            }
+            resolve(decks);
+        });   
+    })
 }
 
 export function createDeck(title) {
@@ -52,12 +27,17 @@ export function createDeck(title) {
     console.log(decks);
     decks.push(newDeck)
     
+
     decks = decks.slice(0);
+    AsyncStorage.setItem(KEY,JSON.stringify(decks))
+
 }
 
 export function deleteDeck(id) {
     let updatedDecks = decks.filter(d => d.id !== id)
     decks = updatedDecks.slice(0);
+    AsyncStorage.setItem(KEY,JSON.stringify(decks))
+
 }
 
 export function addQuestionToDeck(deckId, question) {
@@ -66,4 +46,5 @@ export function addQuestionToDeck(deckId, question) {
     let newDecks = decks.filter(d => d.id !== deckId);
     newDecks.push(deck);
     decks = newDecks;
+    AsyncStorage.setItem(KEY,JSON.stringify(decks))
 }

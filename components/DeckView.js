@@ -21,7 +21,8 @@ class DeckView extends React.Component {
 
     deleteDeckAction() {
       deleteDeck(this.props.deck.id);
-      this.props.dispatch(receiveDecks(getDecks()))
+      getDecks().then((decks)=> this.props.dispatch(receiveDecks(decks)))
+      
       this.props.navigation.navigate("Home")
     }
 
