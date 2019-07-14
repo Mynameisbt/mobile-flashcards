@@ -9,6 +9,7 @@ import { createStore } from 'redux'
 import reducer from './reducers'
 import DeckList from './components/DeckList';
 import AddQuestion from './components/AddQuestion';
+import QuizView from './components/QuizView';
 
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
@@ -34,6 +35,9 @@ const DeckStack = createStackNavigator ({
   },
   AddQuestion: {
     screen: AddQuestion
+  },
+  QuizView: {
+    screen: QuizView
   }
 })
 

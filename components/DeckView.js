@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { deleteDeck, getDecks } from '../utils/api';
 import { connect } from 'react-redux'
@@ -15,6 +15,10 @@ class DeckView extends React.Component {
       this.props.navigation.navigate("AddQuestion")
     }
 
+    startQuiz() {
+      this.props.navigation.navigate("QuizView")
+    }
+
     deleteDeckAction() {
       deleteDeck(this.props.deck.id);
       this.props.dispatch(receiveDecks(getDecks()))
@@ -26,7 +30,7 @@ class DeckView extends React.Component {
       return (
         <View>
             <TouchableHighlight onPress={(event) => this.addQuestion()}  backgroundColor="blue" underlayColor="red" ><Text>Add Card</Text></TouchableHighlight>
-            <TouchableHighlight backgroundColor="blue" underlayColor="red"><Text>Start Quiz</Text></TouchableHighlight>
+            <Button backgroundColor="blue" underlayColor="red" onPress={(event) => this.startQuiz()} title="Start Quiz">Start Quiz</Button>
             <TouchableHighlight backgroundColor="red" underlayColor="red"onPress={(event) => this.deleteDeckAction()}><Text>Delete Deck</Text></TouchableHighlight>
             <Text>Deck Name: {this.props.deck.name}</Text>
 

@@ -22,7 +22,7 @@ class AddQuestion extends React.Component {
       let decks = getDecks();
         this.props.dispatch(receiveDecks(decks))
 
-      this.props.navigation.dispatch(NavigationActions.back({key: 'AddQuestion'}))
+      this.props.navigation.dispatch(NavigationActions.back())
     }
 
 
