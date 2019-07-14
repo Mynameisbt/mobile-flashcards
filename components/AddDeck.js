@@ -11,11 +11,14 @@ class AddDeck extends React.Component {
   }
   
   addNewDeck() {
-    createDeck(this.state.title)
-    getDecks().then((decks) => this.props.dispatch(receiveDecks(decks)))
-
+    let newDeck = createDeck(this.state.title)
+    getDecks().then((decks) => {
+      this.props.dispatch(receiveDecks(decks))
+      this.props.dispatch(selectDeck(decks.filter(d => d.id === newDeck.id)[0]))
+    }
+    )
     
-    this.props.navigation.navigate("Decks")
+    this.props.navigation.navigate("DeckView")
   }
   
   render(){

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import {addQuestionToDeck, getDecks} from '../utils/api'
 import { connect } from 'react-redux'
@@ -45,7 +45,7 @@ class AddQuestion extends React.Component {
             <Text>Enter New Question</Text>
             <TextInput placeholder="Enter Question" name="question" onChangeText={(txt) => this.updateQuestion(txt.trim())}>{this.state.question}</TextInput>
             <TextInput placeholder="Enter Answer" name="answer" onChangeText={(txt) => this.updateAnswer(txt.trim())}>{this.state.answer}</TextInput>
-            <Button backgroundColor="blue" onPress={() => this.saveQuestion()}>Create Question</Button>
+            <Button onPress={() => this.saveQuestion()} title="Create Question">Create Question</Button>
         </View>
       );
     } 

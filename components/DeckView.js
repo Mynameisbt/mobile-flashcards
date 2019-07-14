@@ -32,9 +32,9 @@ class DeckView extends React.Component {
         <View>
             <Text>Deck Name: {this.props.deck.name}</Text>
             <Text>Cards: {this.props.numQuestions}</Text>
-            <Button onPress={(event) => this.addQuestion()}  backgroundColor="green" title="Add Card"><Text>Add Card</Text></Button>
-            <Button backgroundColor="blue" onPress={(event) => this.startQuiz()} title="Start Quiz">Start Quiz</Button>
-            <Button backgroundColor="red" onPress={(event) => this.deleteDeckAction()} title="Delete Deck"><Text>Delete Deck</Text></Button>
+            <Button onPress={(event) => this.addQuestion()} title="Add Card"><Text>Add Card</Text></Button>
+            <Button onPress={(event) => this.startQuiz()} title="Start Quiz">Start Quiz</Button>
+            <Button  onPress={(event) => this.deleteDeckAction()} title="Delete Deck"><Text>Delete Deck</Text></Button>
         </View>
       );
     } 

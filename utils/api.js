@@ -25,12 +25,10 @@ export function createDeck(title) {
             questions: []
         }
     console.log(decks);
-    decks.push(newDeck)
-    
-
+    decks.push(newDeck);
     decks = decks.slice(0);
     AsyncStorage.setItem(KEY,JSON.stringify(decks))
-
+    return newDeck;
 }
 
 export function deleteDeck(id) {
