@@ -10,6 +10,7 @@ import reducer from './reducers'
 import DeckList from './components/DeckList';
 import AddQuestion from './components/AddQuestion';
 import QuizView from './components/QuizView';
+import { setLocalNotification } from './utils/helpers';
 
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
@@ -51,6 +52,9 @@ const Tabs = createBottomTabNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={createStore(reducer)}>

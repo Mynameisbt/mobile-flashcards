@@ -1,9 +1,8 @@
 import React from 'react';
 import { Text, View, Button, Animated } from 'react-native';
-import {addQuestionToDeck, getDecks} from '../utils/api'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { receiveDecks, selectDeck } from '../actions'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 class QuizView extends React.Component {
   state = {
@@ -15,23 +14,30 @@ class QuizView extends React.Component {
   }
 
   setCorrect() {
-    this.setState((prevState) => (
-      {
+    this.setState((prevState) => {
+      if (prevState.questionNumber +1 === this.props.questions.length) {
+        clearLocalNotification().then(setLocalNotification)
+      }
+      
+      return {
         numCorrect: prevState.numCorrect+1,
         questionNumber: prevState.questionNumber+1,
         displayAnswer: false
       }
-    ));
+    });
   }
 
   setIncorrect() {
-    this.setState((prevState) => (
-      {
-        numIncorrect: prevState.numIncorrect+1,
-        questionNumber: prevState.questionNumber+1,
-        displayAnswer: false
+    this.setState((prevState) => {
+      if (prevState.questionNumber +1 === this.props.questions.length) {
+        clearLocalNotification().then(setLocalNotification)
       }
-    ));
+      return {
+          numIncorrect: prevState.numIncorrect+1,
+          questionNumber: prevState.questionNumber+1,
+          displayAnswer: false
+        }
+    });
   }
 
   toggleAnswer() {
